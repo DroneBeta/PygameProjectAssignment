@@ -20,9 +20,6 @@
 2. Install **Pygame** by running:
    ```bash
    pip install pygame
-```
-
 3. Run Python main.py:
    ```bash
    python main.py
-```
