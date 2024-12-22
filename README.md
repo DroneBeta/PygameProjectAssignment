@@ -16,10 +16,12 @@
 ## How to Run the Game
 
 1. Ensure you have **Python** installed on your system.
+
 2. Install **Pygame** by running:
    ```bash
    pip install pygame
 ```
+
 3. Run Python main.py:
    ```bash
    python main.py
