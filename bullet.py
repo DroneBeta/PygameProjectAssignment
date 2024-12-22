@@ -27,7 +27,7 @@ def check_bullet_enemy_collisions(bullets, enemies, BULLET_RADIUS, score):
     for bullet in bullets[:]:  # Iterate through a copy of the list
         for enemy in enemies[:]:
             if pygame.Rect(bullet[0] - BULLET_RADIUS, bullet[1] - BULLET_RADIUS, BULLET_RADIUS * 2, BULLET_RADIUS * 2).colliderect(enemy):
-                score += 20
+                score[0] += 20
                 bullets.remove(bullet)
                 enemies.remove(enemy)
-                break
+                return score

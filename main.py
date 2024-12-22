@@ -104,7 +104,7 @@ def main_loop():
     # Game properties
     gravity = BIRD_GRAVITY
     bird_movement = 0
-    score = 0
+    score = [0]
     font = pygame.font.Font(None, 50)
     game_active = True
     game_state = "Game"
@@ -144,10 +144,10 @@ def main_loop():
                         bird.center = (50, HEIGHT // 2)
                         bird_movement = 0
                         pipes.clear()
-                        score = 0
+                        score[0] = 0
                         continue
             elif game_state == "GameOver" :
-                display_game_over(WIDTH, HEIGHT, screen, BLACK, WHITE, font, score)
+                display_game_over(WIDTH, HEIGHT, screen, BLACK, WHITE, font, score[0])
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         game_state = "Game"
@@ -166,7 +166,7 @@ def main_loop():
                     enemies.clear()
                     bird.center = (50, HEIGHT // 2)
                     bird_movement = 0
-                    score = 0
+                    score[0] = 0
                     game_state = "GameOver"
                 if event.key == pygame.K_w and game_active:  # Shoot with 'W'
                     bullet_position = (bird.x + bird.width, bird.y + bird.height // 2 + 20)
@@ -181,7 +181,7 @@ def main_loop():
 
                 # Difficulty ranking up
                 if game_active:
-                    PIPE_GAP, spawn_rate  = difficulty_up(PIPE_GAP, score, spawn_rate, SPAWNPIPE)
+                    PIPE_GAP, spawn_rate  = difficulty_up(PIPE_GAP, score[0], spawn_rate, SPAWNPIPE)
 
                 if random.random() < 0.4: # Spawn an enemy with a 40% chance
                     enemy = spawn_enemy(pipes[len(pipes) - 1], PIPE_WIDTH, ENEMY_WIDTH, ENEMY_HEIGHT, PIPE_GAP) 
@@ -204,11 +204,12 @@ def main_loop():
             # Check for collisions
             game_active = check_collision(pipes, enemies, bird, HEIGHT)
             check_bullet_collisions(bullets, pipes, BULLET_RADIUS)
+            check_bullet_enemy_collisions(bullets, enemies, BULLET_RADIUS, score)
 
             # Score update
             for pipe in pipes:
                 if bird.x == pipe.right:  
-                    score += 2.5
+                    score[0] += 2.5
 
             # Animation
             frame += 1
@@ -231,7 +232,6 @@ def main_loop():
             display_score(font, score, WHITE, screen) 
             draw_bullets(bullets, BULLET_COLOR, BULLET_RADIUS, screen)
             draw_enemies(enemies, enemy_index, enemy_animation_resized, screen)
-            check_bullet_enemy_collisions(bullets, enemies, BULLET_RADIUS, score)
 
 
         pygame.display.flip()

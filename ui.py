@@ -2,7 +2,7 @@ import pygame
 import sys
 
 def display_score(font, score, WHITE, screen):
-    score_text = font.render(f"Score: {int(score)}", True, WHITE)
+    score_text = font.render(f"Score: {int(score[0])}", True, WHITE)
     screen.blit(score_text, (10, 10))
 
 def draw_button(text, x, y, width, height, screen, font, BLACK, WHITE, hover=False):
